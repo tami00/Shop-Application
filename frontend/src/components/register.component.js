@@ -64,12 +64,14 @@ export default class Register extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangePhoneNo = this.onChangePhoneNo.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
       phoneNo: "",
+      address: "",
       successful: false,
       message: ""
     };
@@ -99,6 +101,13 @@ export default class Register extends Component {
     });
   }
 
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value
+    });
+  }
+  
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -114,7 +123,8 @@ export default class Register extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-        this.state.phoneNo
+        this.state.phoneNo,
+        this.state.address
       ).then(
         response => {
           this.setState({
@@ -195,6 +205,18 @@ export default class Register extends Component {
                         event.preventDefault();
                       }
                     }}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="address">Address</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="address"
+                    value={this.state.address}
+                    onChange={this.onChangeAddress}
+                    validations={[required]}
                   />
                 </div>
 

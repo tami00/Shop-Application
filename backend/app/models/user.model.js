@@ -6,7 +6,13 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
-    phoneNo: String 
+    phoneNo: String, 
+    address: String,
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    }
   })
 );
 
