@@ -13,7 +13,14 @@ function ViewStock() {
         .then(response => {
             if (response.data.success) {
                 console.log('STOCK:', response.data.products)
-                //setFavouriteList(response.data.products)
+                setProductDetails(
+                  response.data.products.map(row => ({
+                    brand: row.brand,
+                    catergory: row.catergory,
+                    name: row.name,
+                    price: row.price,
+                    quantity: row.quantity
+                  })))
             } else {
                 alert('Error')
             }
@@ -53,12 +60,12 @@ const columns = [
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <Title level={2} > View Stock</Title>
       </div>
-
-    
-
-
-
-
+      <Table
+          columns={columns}
+          dataSource={productDetails}
+          pagination={{ pageSize: 10 }}
+          scroll={{ y: 240 }}
+        />
     </div>
   )
 }
