@@ -15,22 +15,22 @@ const Catergory = [
 
 function AddStock() {
 
-    const [name, setName] = useState("");
-    const [brand, setBrand] = useState("");
+    const [title, settitle] = useState("");
+    const [manufacturer, setmanufacturer] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
     const [categories, setCategories] = useState("Electronics")
 
-    const prodID = name+quantity+price
+    const prodID = title+quantity+price
 
 
-    const handleChangeName = ( event ) => {
-        setName(event.currentTarget.value)
+    const handleChangetitle = ( event ) => {
+        settitle(event.currentTarget.value)
     }
 
-    const handleChangeBrand = (event) => {
+    const handleChangemanufacturer = (event) => {
         console.log(event.currentTarget.value)
-        setBrand(event.currentTarget.value)
+        setmanufacturer(event.currentTarget.value)
     }
 
     const handleChangePrice = (value) => {
@@ -50,14 +50,14 @@ function AddStock() {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (name === "" || brand === "" ||
+        if (title === "" || manufacturer === "" ||
         categories === "" || price === "") {
         return alert('Please fill in all the fields first')
         }
 
         const variables = {
-            name: name,
-            brand: brand,
+            title: title,
+            manufacturer: manufacturer,
             catergory: categories,
             price: price,
             quantity: quantity,
@@ -85,16 +85,16 @@ function AddStock() {
         </div>
 
         <Form onSubmit={onSubmit}>
-            <label>Name</label>
+            <label>title</label>
             <Input
-                 onChange={handleChangeName}
-                 value={name}
+                 onChange={handleChangetitle}
+                 value={title}
             />
             <br/><br/>
-            <label>Brand</label>
+            <label>manufacturer</label>
             <Input
-                 onChange={handleChangeBrand}
-                 value={brand}
+                 onChange={handleChangemanufacturer}
+                 value={manufacturer}
             />
             <br/><br/>
             <label>Price</label>
