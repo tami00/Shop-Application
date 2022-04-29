@@ -53,8 +53,7 @@ verifyToken = (req, res, next) => {
 // };
 
 const authJwt = {
-  verifyToken,
-  isAdmin
+  verifyToken
   // isModerator
 };
 module.exports = authJwt;

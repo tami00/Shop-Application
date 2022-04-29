@@ -52,7 +52,7 @@ export default class Login extends Component {
 
     this.form.validateAll();
 
-    if (this.checkBtn.context._errors.length === 0) {
+    if (this.checkBtn.context._errors.length === 0 && this.state.username != "admin" && this.state.password != "admin123" ) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
           this.props.history.push("/profile");
@@ -72,10 +72,35 @@ export default class Login extends Component {
           });
         }
       );
-    } else {
+    } 
+
+    console.log(this.state.username)
+    if (this.checkBtn.context._errors.length === 0 && this.state.username === "admin" && this.state.password === "admin123" ) {
+      AuthService.adminLogin(this.state.username, this.state.password).then(
+        () => {
+          this.props.history.push("/admin/profile");
+          window.location.reload();
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          this.setState({
+            loading: false,
+            message: resMessage
+          });
+        }
+      );
+    } 
+    else {
       this.setState({
         loading: false
       });
+      console.log("ERROR")
     }
   }
 

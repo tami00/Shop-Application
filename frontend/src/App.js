@@ -16,15 +16,16 @@ import AuthService from "./services/auth.service";
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [locationState, setLocationState] = useState('')
+  const [userName, setUserName] = useState('')
 
   const location = useLocation();
-
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     setLocationState(location.pathname)
     if (user) {
       setCurrentUser(user);
+      setUserName(user.username)
     }
 
     EventBus.on("logout", () => {
@@ -40,8 +41,10 @@ const App = () => {
     setCurrentUser(undefined);
   };
 
+
   return (
     <div>
+      {userName === "admin" ? (
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           Movie App
@@ -52,30 +55,18 @@ const App = () => {
               Home
             </Link>
           </li>
-
-          {/* might replace for creator stuff -- discover/start campaign */}
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
-          )}
-
         </div>
-
-
-        {/* passing a callback function to the Search component which will return
-        the result returned from the api. Keeping the movie list state in app.js to map the movies here */}
-
-        {/* {locationState == '/register' || locationState == '/login' ? null : <Search />} */}
-
 
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
+              <Link to={"/admin/profile"} className="nav-link">
                 {currentUser.username}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/admin/profile"} className="nav-link">
+                TEST ADMIN NAV BAR
               </Link>
             </li>
             <li className="nav-item">
@@ -100,6 +91,55 @@ const App = () => {
           </div>
         )}
       </nav>
+  ):( 
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+    <Link to={"/"} className="navbar-brand">
+      Movie App
+    </Link>
+    <div className="navbar-nav mr-auto">
+      <li className="nav-item">
+        <Link to={"/home"} className="nav-link">
+          Home
+        </Link>
+      </li>
+    </div>
+
+    {currentUser ? (
+      <div className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to={"/admin/profile"} className="nav-link">
+            {currentUser.username}
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to={"/admin/profile"} className="nav-link">
+            USER NAV BAR
+          </Link>
+        </li>
+        <li className="nav-item">
+          <a href="/login" className="nav-link" onClick={logOut}>
+            LogOut
+          </a>
+        </li>
+      </div>
+    ) : (
+      <div className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to={"/login"} className="nav-link">
+            Login
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link to={"/register"} className="nav-link">
+            Sign Up
+          </Link>
+        </li>
+      </div>
+    )}
+  </nav>
+  )}
+
 
       <div className="container-fluid">
         <Switch>
@@ -107,6 +147,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/admin/profile" component={Profile} />
           <Route path="/user" component={BoardUser} />
         </Switch>
       </div>
