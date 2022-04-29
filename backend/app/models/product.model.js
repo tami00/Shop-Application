@@ -7,7 +7,8 @@ const Product = mongoose.model(
     brand: String,
     price: String,
     catergory: String,
-    quantity: String
+    quantity: String,
+    prodID: String
   })
 );
 

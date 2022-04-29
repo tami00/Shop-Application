@@ -19,7 +19,8 @@ function ViewStock() {
                     catergory: row.catergory,
                     name: row.name,
                     price: row.price,
-                    quantity: row.quantity
+                    quantity: row.quantity,
+                    prodID: row.prodID
                   })))
             } else {
                 alert('Error')
@@ -50,8 +51,13 @@ const columns = [
     key: 'brand',
   }, {
     title: 'Catergory',
-    dataIndex: 'price',
-    key: 'price',
+    dataIndex: 'catergory',
+    key: 'catergory',
+  },
+  {
+    title: 'ID',
+    dataIndex: 'prodID',
+    key: 'prodID',
   },
 ];
 

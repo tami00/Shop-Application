@@ -21,6 +21,8 @@ function AddStock() {
     const [quantity, setQuantity] = useState("");
     const [categories, setCategories] = useState("Electronics")
 
+    const prodID = name+quantity+price
+
 
     const handleChangeName = ( event ) => {
         setName(event.currentTarget.value)
@@ -58,7 +60,8 @@ function AddStock() {
             brand: brand,
             catergory: categories,
             price: price,
-            quantity: quantity
+            quantity: quantity,
+            prodID: prodID
         }
 
         console.log(variables)

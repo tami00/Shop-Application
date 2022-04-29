@@ -26,4 +26,19 @@ router.post("/getStock", (req, res) => {
     
 })
 
+router.post("/updateStock", (req, res) => {
+    const prodID = req.body.prodID
+
+    Product.findOneAndUpdate(prodID, { new: true }, function(err, product) {
+        if (err) {
+          console.log("err", err);
+          res.status(500).send(err);
+        } else {
+          console.log("success");
+          res.send(product);
+        }
+    });
+
+});
+
 module.exports = router;
