@@ -38,6 +38,8 @@ db.mongoose
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
+app.use('/api/admin', require('./app/routes/admin.routes'));
+
 // set port, listen for requests
 const PORT = 8080;
 app.listen(PORT, () => {

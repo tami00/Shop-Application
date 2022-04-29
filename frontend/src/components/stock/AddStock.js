@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react'
-import { Typography, Button, Form, message, Input, InputNumber  } from 'antd';
+import axios from 'axios';
+import { Typography, Button, Form, Input, InputNumber  } from 'antd';
 
 const { Title } = Typography;
 
@@ -38,8 +39,31 @@ function AddStock() {
         setCategories(event.currentTarget.value)
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        if (name === "" || brand === "" ||
+        categories === "" || price === "") {
+        return alert('Please fill in all the fields first')
+        }
+
+        const variables = {
+            name: name,
+            brand: brand,
+            category: categories,
+            price: price
+        }
+
+        axios.post('http://localhost:8080/api/admin/addStock', variables)
+            .then(response => {
+                if (response.data.success) {
+                    console.log('Stock added Successfully')
+                } else {
+                    alert('Failed to add stock')
+                }
+            })
         
+
     }
 
     return (
