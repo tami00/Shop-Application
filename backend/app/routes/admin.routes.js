@@ -16,4 +16,14 @@ router.post("/addStock", (req, res) => {
 
 });
 
+router.post("/getStock", (req, res) => {
+    Product.find({}) 
+    .exec((err, products) => {
+        if(err) return res.status(400).send(err)
+        res.status(200).json({success: true, products})
+    })
+    
+    
+})
+
 module.exports = router;

@@ -6,7 +6,8 @@ const Product = mongoose.model(
     name: String,
     brand: String,
     price: String,
-    catergory: String
+    catergory: String,
+    quantity: String
   })
 );
 

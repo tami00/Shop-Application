@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState} from 'react'
 import axios from 'axios';
 import { Typography, Button, Form, Input, InputNumber  } from 'antd';
 
@@ -18,6 +18,7 @@ function AddStock() {
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
     const [price, setPrice] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [categories, setCategories] = useState("Electronics")
 
 
@@ -35,6 +36,11 @@ function AddStock() {
         setPrice(value)
     }
 
+    const handleChangeQuantity = (value) => {
+        console.log(value)
+        setQuantity(value)
+    }
+
     const handleChangeTwo = (event) => {
         setCategories(event.currentTarget.value)
     }
@@ -50,14 +56,17 @@ function AddStock() {
         const variables = {
             name: name,
             brand: brand,
-            category: categories,
-            price: price
+            catergory: categories,
+            price: price,
+            quantity: quantity
         }
+
+        console.log(variables)
 
         axios.post('http://localhost:8080/api/admin/addStock', variables)
             .then(response => {
                 if (response.data.success) {
-                    console.log('Stock added Successfully')
+                    console.log('Stock added successfully')
                 } else {
                     alert('Failed to add stock')
                 }
@@ -89,6 +98,13 @@ function AddStock() {
             <InputNumber
                  onChange={handleChangePrice}
                  value={price}
+            />
+            <br/><br/>
+
+            <label>Quantity</label>
+            <InputNumber
+                 onChange={handleChangeQuantity}
+                 value={quantity}
             />
             <br/><br/>
 
