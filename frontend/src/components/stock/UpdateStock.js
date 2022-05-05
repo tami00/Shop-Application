@@ -1,6 +1,7 @@
 import React, { useState} from 'react'
 import axios from 'axios';
 import { Typography, Button, Form, Input, InputNumber  } from 'antd';
+import authHeader from '../../services/auth-header';
 
 const { Title } = Typography;
 
@@ -16,8 +17,8 @@ const Catergory = [
 function UpdateStock() {
 
     const [prodID, setProdID] = useState("");
-    const [name, setName] = useState("");
-    const [brand, setBrand] = useState("");
+    const [title, setTitle] = useState("");
+    const [manufacturer, setManufacturer] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
     const [categories, setCategories] = useState("Electronics")
@@ -27,13 +28,13 @@ function UpdateStock() {
       setProdID(event.currentTarget.value)
   }
 
-    const handleChangeName = ( event ) => {
-        setName(event.currentTarget.value)
+    const handleChangeTitle = ( event ) => {
+        setTitle(event.currentTarget.value)
     }
 
-    const handleChangeBrand = (event) => {
+    const handleChangeManufacturer = (event) => {
         console.log(event.currentTarget.value)
-        setBrand(event.currentTarget.value)
+        setManufacturer(event.currentTarget.value)
     }
 
     const handleChangePrice = (value) => {
@@ -55,23 +56,51 @@ function UpdateStock() {
 
         const variables = {
             prodId: prodID,
-            name: name,
-            brand: brand,
+            title: title,
+            manufacturer: manufacturer,
             catergory: categories,
             price: price,
-            quantity: quantity
+            quantity: quantity,
+            // images: images
         }
 
         console.log(variables)
 
-        axios.post('http://localhost:8080/api/admin/updateStock', variables)
+        axios.post('http://localhost:8080/api/admin/updateStock', variables,  {headers: authHeader(),
+        })
             .then(response => {
-                if (response.data.success) {
+                if (response.data) {
                     console.log('Stock updated successfully')
                 } else {
                     alert('Failed to update stock')
                 }
             })
+
+
+            // const onSubmit = (event) => {
+            //     const variables = {
+            //         userFrom: currentUser.id,
+            //         username: username,
+            //         email: email,
+            //         bio: bio,
+            //         phoneNo: phoneNo,
+            //         filePath: filePath
+            //     }
+        
+            //     Axios.post("http://localhost:8080/api/auth/update", variables, {headers: authHeader(),
+            //     }).then((response) => {
+            //         console.log(variables.userFrom);
+            //         if (response.data.success) {
+            //             console.log("Updated");
+            //             localStorage.setItem("user", JSON.stringify(response.data));
+            //             return uploadSuccess()
+            //         } else {
+            //             console.log(response.error);
+            //             return uploadError()
+            //         }
+            //     });
+            //     window.location.reload()
+            // }
         
 
     }
@@ -88,16 +117,16 @@ function UpdateStock() {
                  onChange={handleChangeProdID}
                  value={prodID}
             />
-            <label>Name</label>
+            <label>Title</label>
             <Input
-                 onChange={handleChangeName}
-                 value={name}
+                 onChange={handleChangeTitle}
+                 value={title}
             />
             <br/><br/>
-            <label>Brand</label>
+            <label>Manufacturer</label>
             <Input
-                 onChange={handleChangeBrand}
-                 value={brand}
+                 onChange={handleChangeManufacturer}
+                 value={manufacturer}
             />
             <br/><br/>
             <label>Price</label>

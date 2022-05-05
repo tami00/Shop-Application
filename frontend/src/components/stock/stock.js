@@ -4,7 +4,6 @@ import { Menu } from 'semantic-ui-react';
 import AddStock from "./AddStock";
 import ViewStock from "./ViewStock";
 import UpdateStock from "./UpdateStock";
-import SearchStock from "./SearchStock";
 
 export default class Profile extends Component {
   state = { activeItem: 'add' }
@@ -19,8 +18,6 @@ export default class Profile extends Component {
         return <ViewStock/>;
       case 'update':
         return <UpdateStock/>;
-    case 'search':
-        return <SearchStock/>;
     }
   }
 
@@ -48,11 +45,6 @@ export default class Profile extends Component {
           <Menu.Item
             name='update'
             active={activeItem === 'update'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='search'
-            active={activeItem === 'search'}
             onClick={this.handleItemClick}
           />
         </Menu>

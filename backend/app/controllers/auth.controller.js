@@ -1,6 +1,7 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
+const Product = require('../models/product.model')
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -113,3 +114,39 @@ exports.adminSignIn = (req, res) => {
     });
 };
 
+exports.update = async (req, res) => {
+  const product = await Product.find({prodId:"iPhone 111001200"});
+  console.log(product);
+  // console.log(req.body.userFrom);
+  // if (product) {
+  //   product.title = req.body.title || product.title;
+  //   product.manufacturer = req.body.manufacturer || product.manufacturer;
+  //   product.price = req.body.price || product.price;
+  //   product.catergory = req.body.catergory || product.catergory;
+  //   product.quantity = req.body.quantity || product.quantity;
+  //   // product.filePath = req.body.filePath || product.filePath;
+
+  //   if (req.body.prodId) {
+  //     product.prodId = req.body.prodId;
+  //   }
+
+  //   //const updatedUser = user.save();
+
+  //   var token = jwt.sign({ id: user.id }, config.secret, {
+  //     expiresIn: 86400, // 24 hours
+  //   });
+
+  //   res.json({
+  //     // id: user._id,
+  //     title: product.title,
+  //     manufacturer: product.manufacturer,
+  //     price: product.price,
+  //     catergory: product.catergory,
+  //     quantity: product.quantity,
+  //     accessToken: token,
+  //     success: true,
+  //   });
+  // } else {
+  //   res.status(404).send({ message: 'Product Not found.' });
+  // }
+};

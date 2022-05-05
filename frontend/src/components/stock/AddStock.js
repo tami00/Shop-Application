@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import axios from 'axios';
 import { Typography, Button, Form, Input, InputNumber  } from 'antd';
-
+import UploadImage from './UploadImage'
 const { Title } = Typography;
 
 const Catergory = [
@@ -20,6 +20,8 @@ function AddStock() {
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
     const [categories, setCategories] = useState("Electronics")
+
+    const [images, setImages] = useState([])
 
     const prodID = title+quantity+price
 
@@ -47,6 +49,10 @@ function AddStock() {
         setCategories(event.currentTarget.value)
     }
 
+    const updateImages = (newImages) => {
+        setImages(newImages)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -61,7 +67,8 @@ function AddStock() {
             catergory: categories,
             price: price,
             quantity: quantity,
-            prodID: prodID
+            prodID: prodID,
+            images: images,
         }
 
         console.log(variables)
@@ -75,7 +82,7 @@ function AddStock() {
                 }
             })
         
-
+            window.location.reload()
     }
 
     return (
@@ -85,6 +92,11 @@ function AddStock() {
         </div>
 
         <Form onSubmit={onSubmit}>
+
+
+        <UploadImage refreshFunction={updateImages} />
+        <br/><br/>
+
             <label>title</label>
             <Input
                  onChange={handleChangetitle}
