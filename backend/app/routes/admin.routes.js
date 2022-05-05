@@ -75,4 +75,38 @@ router.post("/updateStock", (req, res) => {
 
 });
 
+router.get('/search/title', async function (req, res, next) {
+    const { title } = req.query;
+    console.log(title);
+    if (!title) return res.send({ products: [] });
+    let products;
+    try {
+        products = await Product.find(
+        { title: { $regex: title, $options: 'i' } },
+      );
+    } catch (err) {
+      console.log(err);
+      return res.send({ products: [] });
+    }
+
+    res.send({ products });
+  });
+
+  router.get('/search/catergory', async function (req, res, next) {
+    const { catergory } = req.query;
+    console.log(catergory);
+    if (!catergory) return res.send({ products: [] });
+    let products;
+    try {
+        products = await Product.find(
+        { catergory: { $regex: catergory, $options: 'i' } },
+      );
+    } catch (err) {
+      console.log(err);
+      return res.send({ products: [] });
+    }
+
+    res.send({ products });
+  });
+
 module.exports = router;
