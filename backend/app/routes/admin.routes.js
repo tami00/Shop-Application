@@ -49,14 +49,133 @@ router.post("/addStock", (req, res) => {
 });
 
 router.post("/getStock", (req, res) => {
-    Product.find({}) 
+        let findArgs = {};
+    let term = req.body.searchTerm;
+
+    for (let key in req.body.filters) {
+        console.log(key)
+
+        if (req.body.filters[key].length > 0) {
+            if (key === "price") {
+                findArgs[key] = {
+                    $gte: req.body.filters[key][0],
+                    $lte: req.body.filters[key][1]
+                }
+            } else {
+                findArgs[key] = req.body.filters[key];
+                console.log(req.body.filters[key])
+
+                console.log(findArgs)
+            }
+        }
+    }
+    Product.find({})
     .exec((err, products) => {
         if(err) return res.status(400).send(err)
         res.status(200).json({success: true, products})
     })
     
-    
 })
+
+// router.post("/getFilterStock", async function (req, res, next) {
+//     let findArgs = {};
+//     let term = req.body.searchTerm;
+
+//     for (let key in req.body.filters) {
+//         console.log(key)
+
+//         if (req.body.filters[key].length > 0) {
+//             if (key === "price") {
+//                 findArgs[key] = {
+//                     $gte: req.body.filters[key][0],
+//                     $lte: req.body.filters[key][1]
+//                 }
+//             } else {
+//                 findArgs[key] = req.body.filters[key];
+//                 console.log(req.body.filters[key])
+//             }
+//         }
+//     }
+//     Product.find({})
+//     .exec((err, products) => {
+//         if(err) return res.status(400).send(err)
+//         res.status(200).json({success: true, products})
+//     })
+
+
+//     // console.log(findArgs)
+//     // const { catergory } = req.query;
+//     // console.log(catergory);
+//     // if (!catergory) return res.send({ products: [] });
+//     // let products;
+//     // try {
+//     //     products = await Product.find(
+//     //     { catergory: { $regex: catergory, $options: 'i' } },
+//     //   );
+//     // } catch (err) {
+//     //   console.log(err);
+//     //   return res.send({ products: [] });
+//     // }
+
+//     // res.send({ products });
+//   });
+
+
+router.post("/", (req, res) => {
+
+    let order = req.body.order ? req.body.order : "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+    let skip = parseInt(req.body.skip);
+
+    let findArgs = {};
+    let term = req.body.searchTerm;
+
+    for (let key in req.body.filters) {
+
+        if (req.body.filters[key].length > 0) {
+            if (key === "price") {
+                findArgs[key] = {
+                    $gte: req.body.filters[key][0],
+                    $lte: req.body.filters[key][1]
+                }
+            } else {
+                findArgs[key] = req.body.filters[key];
+            }
+        }
+    }
+
+    Product.find({})
+    .exec((err, products) => {
+        if(err) return res.status(400).send(err)
+        res.status(200).json({success: true, products})
+    })
+
+    // console.log(findArgs)
+
+    // if (term) {
+    //     Product.find(findArgs)
+    //         .find({ $text: { $search: term } })
+    //         .sort([[sortBy, order]])
+    //         .skip(skip)
+    //         .limit(limit)
+    //         .exec((err, products) => {
+    //             if (err) return res.status(400).json({ success: false, err })
+    //             res.status(200).json({ success: true, products})
+    //         })
+    // } else {
+    //     Product.find(findArgs)
+    //         .sort([[sortBy, order]])
+    //         .skip(skip)
+    //         .limit(limit)
+    //         .exec((err, products) => {
+    //             if (err) return res.status(400).json({ success: false, err })
+    //             res.status(200).json({ success: true, products})
+    //         })
+    // }
+
+});
+
 
 router.post("/updateStock", (req, res) => {
     const prodID = req.body.prodID

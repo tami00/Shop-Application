@@ -17,6 +17,7 @@ import AuthService from "./services/auth.service";
 import Search from './components/search/Search'
 import StockListComponent from './components/search/StockListComponent';
 import CatergoryComponent from './components/search/CatergoryComponent'
+import ViewProducts from './components/user/ViewProducts'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -56,7 +57,7 @@ const App = () => {
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"/user/home"} className="nav-link">
                 Home
               </Link>
             </li>
@@ -148,6 +149,7 @@ const App = () => {
       <div className="container-fluid">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path="/user/home" component={ViewProducts} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
