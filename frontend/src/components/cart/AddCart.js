@@ -8,12 +8,13 @@ import {Button} from 'antd';
 function AddCart(props) {
   const currentUser = authService.getCurrentUser();
 
-  const onClickAdd = () => {
-  }
+  const addToCarthandler = () => {
+    props.addToCart(props.detail._id)
+}
 
   return (
     <div>
-      <Button onClick={onClickAdd}>Add to Cart</Button> 
+      <Button onClick={addToCarthandler}>Add to Cart</Button> 
     </div>
   );
 }

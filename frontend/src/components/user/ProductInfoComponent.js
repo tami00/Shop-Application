@@ -2,15 +2,19 @@ import React, { useState, useEffect } from "react";
 import {Container, Container2, PosterImg, InfoColumn, ProductTitle, ProductInfo} from "./product-info.styles";
 import { useParams,useLocation } from "react-router-dom";
 import Axios from 'axios';
+import { useDispatch } from 'react-redux';
 import AddCart from "../cart/AddCart";
+import { addToCart } from '../../../_actions/user_actions';
 import Reviews from '../reviews/Reviews'
 import { Rate } from 'antd';
 
 const ProductInfoComponent = () => {
     const location = useLocation();
+    const dispatch = useDispatch();
     const [reviewList, setReviewList] = useState([]);   
     const product = location.state
 
+    const prodID = product.product.prodID
 
     console.log(product.product.title)
 
@@ -33,6 +37,10 @@ const ProductInfoComponent = () => {
     const updateReview = (newReview) => {
       setReviewList(reviewList.concat(newReview))
     }
+
+    const addToCartHandler = (prodID) => {
+      dispatch(addToCart(prodID))
+  }
 
   return (
     <Container>
