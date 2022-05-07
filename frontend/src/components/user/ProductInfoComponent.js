@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {Container, Container2, PosterImg, InfoColumn, ProductTitle, ProductInfo} from "./product-info.styles";
 import { useParams,useLocation } from "react-router-dom";
-// import Reviews from "../review/reviews";
 import Axios from 'axios';
 import authHeader from '../../services/auth-header';
-import authService from '../../services/auth.service';
 import Reviews from '../reviews/Reviews'
 import { Rate } from 'antd';
 
@@ -49,6 +47,7 @@ const ProductInfoComponent = () => {
         Manufacturer: {product.manufacturer}
         </ProductInfo>
       </InfoColumn>
+      <Rate/>
       {/* <div>
         {movieInfo !== undefined && <FavouriteComp movieInfo={movieInfo} />}
       </div>
