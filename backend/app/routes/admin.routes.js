@@ -178,19 +178,17 @@ router.post("/", (req, res) => {
 
 
 router.post("/updateStock", (req, res) => {
-    const prodID = req.body.prodID
+    const filter = {prodId: req.body.prodID}
 
+    const update = req.body
 
-    Product.findOneAndUpdate(prodID, { new: true }, {returnOriginal: false}, function(err, products) {
-        if (err) {
-          console.log("err", err);
-          res.status(500).send(err);
-        } else {
-            Product.save()
-          console.log("success");
-          res.send(product);
-        }
-    });
+    Product.findOneAndUpdate(filter, update, {new: true}).then((product) => {
+        console.log("success");
+        res.send(product);
+  }).catch(err => {
+       console.log("err", err);
+       res.status(500).send(err);
+  })
 
 });
 
