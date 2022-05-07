@@ -42,45 +42,10 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
 app.use('/api/admin', require('./app/routes/admin.routes'));
+app.use('/api/review', require('./app/routes/review.routes'));
 
 // set port, listen for requests
 const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-// function initial() {
-//   Role.estimatedDocumentCount((err, count) => {
-//     if (!err && count === 0) {
-//       new Role({
-//         name: "user"
-//       }).save(err => {
-//         if (err) {
-//           console.log("error", err);
-//         }
-
-//         console.log("added 'user' to roles collection");
-//       });
-
-//       new Role({
-//         name: "creator"
-//       }).save(err => {
-//         if (err) {
-//           console.log("error", err);
-//         }
-
-//         console.log("added 'creator' to roles collection");
-//       });
-
-//       new Role({
-//         name: "watcher"
-//       }).save(err => {
-//         if (err) {
-//           console.log("error", err);
-//         }
-
-//         console.log("added 'watcher' to roles collection");
-//       });
-//     }
-//   });
-// }

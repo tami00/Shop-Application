@@ -10,38 +10,27 @@ import { Rate } from 'antd';
 
 const ProductInfoComponent = () => {
     const location = useLocation();
-    
+    const [reviewList, setReviewList] = useState([]);   
     const product = location.state[0]
-
-    console.log('PROPS', product)
-
+    const { id } = useParams()
 
 
+    useEffect(() => {
+      Axios.post('http://localhost:8080/api/review/getReviews', {data:id}, { headers: authHeader()})
+            .then(response => {
+                if (response.data.success) {
+                    console.log('All Reviews',response.data.reviews)
+                    setReviewList(response.data.reviews)
+                } else {
+                    alert('Error')
+                }
+            })
+    }, [])
 
 
-
-    // const { title, catergory,images, prodID, price, quantity, manufacturer } = props.product;
-  
-//   const [reviewList, setReviewList] = useState([]);
-  const { id } = useParams()
-  const currentUser = authService.getCurrentUser();
-
-    // useEffect(() => {
-    //   Axios.post('http://localhost:8080/api/review/getReviews', {data:id}, { headers: authHeader()})
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 console.log('All Reviews',response.data.reviews)
-    //                 setReviewList(response.data.reviews)
-    //             } else {
-    //                 alert('Error')
-    //             }
-    //         })
-    // }, [])
-
-
-    // const updateReview = (newReview) => {
-    //   setReviewList(reviewList.concat(newReview))
-    // }
+    const updateReview = (newReview) => {
+      setReviewList(reviewList.concat(newReview))
+    }
 
   return (
     <Container>
@@ -65,12 +54,12 @@ const ProductInfoComponent = () => {
       </div>
       <div>
       {movieInfo !== undefined && <FutureFilmsComponent movieInfo={movieInfo} />}
-      </div>
+      </div> */}
       <div>
         <Container2>
-        <Reviews refreshFunction={updateReview} reviewList={reviewList} prodID={prodID} title={title} />
+        <Reviews refreshFunction={updateReview} reviewList={reviewList} prodID={product.prodID} title={product.title} />
         </Container2>
-      </div> */}
+      </div>
     </Container>
   );
 };
