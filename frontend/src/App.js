@@ -18,6 +18,7 @@ import Search from './components/search/Search'
 import StockListComponent from './components/search/StockListComponent';
 import CatergoryComponent from './components/search/CatergoryComponent'
 import ViewProducts from './components/user/ViewProducts'
+import ProductInfoComponent from './components/user/ProductInfoComponent'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -154,6 +155,7 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/stock/title/:title"children={<StockListComponent />}/>
+          <Route exact path="/products/:title/:id" children={<ProductInfoComponent />} />
           <Route exact path="/stock/catergory/:catergory"children={<CatergoryComponent />}/>
           <Route exact path="/admin/profile" component={Profile} />
           <Route exact path="/admin/stock" component={Stock} />
