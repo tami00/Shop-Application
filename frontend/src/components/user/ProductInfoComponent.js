@@ -9,12 +9,16 @@ import { Rate } from 'antd';
 const ProductInfoComponent = () => {
     const location = useLocation();
     const [reviewList, setReviewList] = useState([]);   
-    const product = location.state[0]
+    const product = location.state
+
+
+    console.log(product.product.title)
+
     const { id } = useParams()
 
 
     useEffect(() => {
-      Axios.post('http://localhost:8080/api/review/getReviews', {data:id}, { headers: authHeader()})
+      Axios.post('http://localhost:8080/api/review/getReviews', {data:id})
             .then(response => {
                 if (response.data.success) {
                     console.log('All Reviews',response.data.reviews)
@@ -32,19 +36,19 @@ const ProductInfoComponent = () => {
 
   return (
     <Container>
-      <PosterImg src={"http://localhost:8080/" + product.images} />
+      <PosterImg src={"http://localhost:8080/" + product.product.images} />
       <InfoColumn>
         <ProductTitle>
-          {product.title}
+          {product.product.title}
         </ProductTitle>
         <ProductInfo>
-          Price: {product.price}
+          Price: {product.product.price}
         </ProductInfo>
         <ProductInfo>
-          Catergory: {product.catergory}
+          Catergory: {product.product.catergory}
         </ProductInfo>
         <ProductInfo>
-        Manufacturer: {product.manufacturer}
+        Manufacturer: {product.product.manufacturer}
         </ProductInfo>
       </InfoColumn>
       <Rate/>

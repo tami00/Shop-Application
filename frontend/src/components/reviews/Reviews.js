@@ -33,9 +33,8 @@ const Reviews = (props) => {
       reviewId: props.reviewId
     };
 
-    Axios.post('http://localhost:8080/api/review/addReview', variables, {
-      headers: authHeader(),
-    }).then((response) => {
+    Axios.post('http://localhost:8080/api/review/addReview', variables)
+    .then((response) => {
       if (response.data.success) {
         setReview('');
         props.refreshFunction(response.data.result);

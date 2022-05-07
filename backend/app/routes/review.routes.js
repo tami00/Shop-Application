@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
 });
 
 
-router.post("/addReview", [authJwt.verifyToken], (req, res) => {
+router.post("/addReview", (req, res) => {
     const review = new Review(req.body)
 
     review.save((err, review) => {
@@ -28,7 +28,7 @@ router.post("/addReview", [authJwt.verifyToken], (req, res) => {
     
 })
 
-router.post("/getReviews", [authJwt.verifyToken], (req, res) => {
+router.post("/getReviews", (req, res) => {
     Review.find({"movieId": req.body.data}) 
     // console.log("ID ", req.body.data)
     .populate('author')

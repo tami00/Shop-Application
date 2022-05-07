@@ -28,9 +28,8 @@ function FirstReview(props) {
       content: reviewValue,
     };
 
-    Axios.post('http://localhost:8080/api/review/addReview', variables, {
-      headers: authHeader(),
-    }).then((response) => {
+    Axios.post('http://localhost:8080/api/review/addReview', variables
+    ).then((response) => {
       if (response.data.success) {
         setReviewValue('');
         setReply(!reply);
