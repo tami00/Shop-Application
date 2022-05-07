@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Container, Container2, PosterImg, InfoColumn, ProductTitle, ProductInfo} from "./product-info.styles";
 import { useParams,useLocation } from "react-router-dom";
 import Axios from 'axios';
-import authHeader from '../../services/auth-header';
+import AddCart from "../cart/AddCart";
 import Reviews from '../reviews/Reviews'
 import { Rate } from 'antd';
 
@@ -49,15 +49,10 @@ const ProductInfoComponent = () => {
         </ProductInfo>
         <ProductInfo>
         Manufacturer: {product.product.manufacturer}
+        {product.product !== undefined && <AddCart product={product.product} />}
         </ProductInfo>
       </InfoColumn>
       <Rate/>
-      {/* <div>
-        {movieInfo !== undefined && <FavouriteComp movieInfo={movieInfo} />}
-      </div>
-      <div>
-      {movieInfo !== undefined && <FutureFilmsComponent movieInfo={movieInfo} />}
-      </div> */}
       <div>
         <Container2>
         <Reviews refreshFunction={updateReview} reviewList={reviewList} prodID={product.prodID} title={product.title} />
