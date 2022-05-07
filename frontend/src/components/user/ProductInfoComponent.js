@@ -21,7 +21,7 @@ const ProductInfoComponent = () => {
   const [reviewList, setReviewList] = useState([]);
   const product = location.state;
 
-  const prodID = product.product.prodID;
+  const prodId = product.product.prodID;
 
   console.log(product.product.title);
 
@@ -29,7 +29,7 @@ const ProductInfoComponent = () => {
 
   useEffect(() => {
     Axios.post("http://localhost:8080/api/review/getReviews", {
-      data: id,
+      data: prodId,
     }).then((response) => {
       if (response.data.success) {
         console.log("All Reviews", response.data.reviews);
@@ -68,8 +68,8 @@ const ProductInfoComponent = () => {
           <Reviews
             refreshFunction={updateReview}
             reviewList={reviewList}
-            prodID={product.prodID}
-            title={product.title}
+            prodID={product.product.prodID}
+            title={product.product.title}
           />
         </Container2>
       </div>

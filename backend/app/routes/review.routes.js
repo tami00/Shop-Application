@@ -29,7 +29,8 @@ router.post("/addReview", (req, res) => {
 })
 
 router.post("/getReviews", (req, res) => {
-    Review.find({"movieId": req.body.data}) 
+    console.log('REQ',req.body.data)
+    Review.find({"prodID": req.body.data}) 
     // console.log("ID ", req.body.data)
     .populate('author')
     .exec((err, reviews) => {

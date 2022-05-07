@@ -12,6 +12,7 @@ const Reviews = (props) => {
   const currentUser = authService.getCurrentUser();
   const [review, setReview] = useState('');
   const [reload, setReload] = useState(true);
+  console.log('PROPS',props)
 
   const handleChange = (e) => {
     setReview(e.target.value);
