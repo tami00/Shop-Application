@@ -4,6 +4,7 @@ const multer = require('multer');
 const { authJwt } = require('../middlewares');
 
 const Product = require("../models/product.model")
+const User = require("../models/user.model")
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -75,6 +76,14 @@ router.post("/getStock", (req, res) => {
         res.status(200).json({success: true, products})
     })
     
+})
+
+router.post("/getUsers", (req, res) => {
+    User.find({})
+    .exec((err, users) => {
+        if(err) return res.status(400).send(err)
+        res.status(200).json({success: true, users})
+    })
 })
 
 // router.post("/getFilterStock", async function (req, res, next) {

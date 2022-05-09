@@ -21,6 +21,7 @@ import ViewProducts from './components/user/ViewProducts'
 import ProductInfoComponent from './components/user/ProductInfoComponent'
 import Checkout from './components/cart/Checkout'
 import OrderConfirmation from './components/cart/OrderConfirmation'
+import UserMenu from './components/admin/UserMenu'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -66,13 +67,13 @@ const App = () => {
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/admin/profile"} className="nav-link">
-                  {currentUser.username}
+                <Link to={"/admin/stock"} className="nav-link">
+                    STOCK
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/admin/stock"} className="nav-link">
-                    STOCK
+                <Link to={"/admin/users"} className="nav-link">
+                    USERS
                 </Link>
               </li>
               <li className="nav-item">
@@ -156,6 +157,7 @@ const App = () => {
           <Route exact path="/stock/catergory/:catergory"children={<CatergoryComponent />}/>
           <Route exact path="/admin/profile" component={Profile} />
           <Route exact path="/admin/stock" component={Stock} />
+          <Route exact path="/admin/users" component={UserMenu} />
           <Route exact path="/order/confimation" component={OrderConfirmation} />
           <Route path="/user" component={BoardUser} />
         </Switch>

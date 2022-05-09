@@ -78,7 +78,7 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0 && this.state.username === "admin" && this.state.password === "admin123" ) {
       AuthService.adminLogin(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/admin/profile");
+          this.props.history.push("/admin/stock");
           window.location.reload();
         },
         error => {

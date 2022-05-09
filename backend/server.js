@@ -42,6 +42,7 @@ require("./app/routes/user.routes")(app);
 
 app.use("/api/admin", require("./app/routes/admin.routes"));
 app.use("/api/review", require("./app/routes/review.routes"));
+app.use("/api/order", require("./app/routes/order.routes"));
 app.use("/api", require("./app/routes/cart.routes"));
 
 // set port, listen for requests
