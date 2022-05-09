@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { FireOutlined } from '@ant-design/icons'
-import { Col, Card, Row } from 'antd'
+import { Col, Card, Row,message } from 'antd'
 import CheckBox from '../filter/CheckBox'
 import { useHistory } from "react-router-dom";
 
@@ -18,8 +18,12 @@ function ViewProducts() {
         price: []
     })
 
-    useEffect(() => {
+    const success = () => {
+        message.success('Enter NEW10 for 10% off');
+      };
 
+    useEffect(() => {
+        success()
         getProducts()
 
     }, [])

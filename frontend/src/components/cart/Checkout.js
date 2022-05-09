@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ShoppingCartOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Card, Space } from 'antd'
+import { Card, Space,Input  } from 'antd'
 import authService from "../../services/auth.service";
 import { useHistory } from "react-router-dom";
 
@@ -32,21 +32,6 @@ function Checkout() {
     const items = cartDetails.items
     console.log('ITEMS', items)
 
-    // const renderCards = items.map((product, index) => {
-
-    //     return <Col lg={6} md={8} xs={24}>
-    //         <Card
-    //             // key={index}
-    //             // productTitle={product.title}
-    //             hoverable={true}
-    //         >
-    //             <Meta
-    //                 title={product.title}
-    //             // description={`$${cartDetails[product].bill}`}
-    //             />
-    //         </Card>
-    //     </Col>
-    // })
 
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
@@ -78,6 +63,11 @@ function Checkout() {
                         }) : <div></div>}
 </Space>
 
+
+<br></br>
+<h3>Total: {cartDetails.bill}</h3>
+<p>Input any discount codes below</p>
+<Input style={{ width: '20%' }}/>
 
                 </div>
             }
