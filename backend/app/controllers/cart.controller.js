@@ -2,37 +2,50 @@ const Cart = require("../models/cart");
 const Product = require("../models/product.model");
 
 module.exports.get_cart_items = async (req, res) => {
-  const userId = req.params.id;
-  try {
-    let cart = await Cart.findOne({ userId });
-    if (cart && cart.items.length > 0) {
-      res.send(cart);
-    } else {
-      res.send(null);
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Something went wrong");
-  }
+  // const userID = req.body.data;
+  const userID = "6276fddc912c9b0a1c237b40"
+
+  Cart.findOne({ userID: userID })
+  .exec((err, products) => {
+    if(err) return res.status(400).send(err)
+    res.status(200).json({success: true, products})
+})
+
+  // console.log('ID',userID);
+  // try {
+  //   let cart = await Cart.findOne({ userID: userID });
+  //   if (cart && cart.items.length > 0) {
+  //     res.send(cart);
+  //   } else {
+  //     res.send(null);
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send("Something went wrong");
+  //  }
 };
 
 module.exports.add_cart_item = async (req, res) => {
-  const userId = req.params.id;
-  const productId = req.body.productId;
+  const userID = req.body.id;
+  const productID = req.body.productId;
   const quantity = req.body.quantity;
 
+  console.log(userID);
+  console.log(productID);
+
   try {
-    let cart = await Cart.findOne({ userId });
-    let item = await Product.findOne({ prodID: productId });
+    let cart = await Cart.findOne({ userID: userID });
+    let item = await Product.findOne({ prodID: productID });
     if (!item) {
       res.status(404).send("Item not found!");
     }
     const price = item.price;
     const name = item.title;
+    const pid = item.prodID;
 
     if (cart) {
       // if cart exists for the user
-      let itemIndex = cart.items.findIndex((p) => p.productId == productId);
+      let itemIndex = cart.items.findIndex((p) => p.prodID == productID);
 
       // Check if product exists or not
       if (itemIndex > -1) {
@@ -40,7 +53,7 @@ module.exports.add_cart_item = async (req, res) => {
         productItem.quantity += quantity;
         cart.items[itemIndex] = productItem;
       } else {
-        cart.items.push({ productId, name, quantity, price });
+        cart.items.push({ productID, name, quantity, price });
       }
       cart.bill += quantity * price;
       cart = await cart.save();
@@ -48,8 +61,8 @@ module.exports.add_cart_item = async (req, res) => {
     } else {
       // no cart exists, create one
       const newCart = await Cart.create({
-        userId,
-        items: [{ productId, name, quantity, price }],
+        userID: userID,
+        items: [{ prodID: productID, name, quantity, price }],
         bill: quantity * price,
       });
       return res.status(201).send(newCart);

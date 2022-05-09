@@ -19,6 +19,7 @@ import StockListComponent from './components/search/StockListComponent';
 import CatergoryComponent from './components/search/CatergoryComponent'
 import ViewProducts from './components/user/ViewProducts'
 import ProductInfoComponent from './components/user/ProductInfoComponent'
+import Checkout from './components/cart/Checkout'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -119,8 +120,8 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/admin/profile"} className="nav-link">
-                  USER NAV BAR
+                <Link to={"/checkout"} className="nav-link">
+                  CART
                 </Link>
               </li>
               <li className="nav-item">
@@ -154,6 +155,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/stock/title/:title"children={<StockListComponent />}/>
           <Route exact path="/products/:title/:id" children={<ProductInfoComponent />} />
           <Route exact path="/stock/catergory/:catergory"children={<CatergoryComponent />}/>

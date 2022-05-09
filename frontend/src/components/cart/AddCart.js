@@ -11,33 +11,9 @@ function AddCart(props) {
   console.log(props);
   const addToCarthandler = () => {
     axios
-      .post(
-        `http://localhost:8080/api/cart`,
-        {
-          productId: props.product.prodID,
-          quantity: 1,
-        },
-        {
-          params: { id: currentUser.id },
-        }
-      )
+      .post(`http://localhost:8080/api/cart`, {productId: props.product.prodID, quantity: 1,id: currentUser.id, })
       .then((response) => {
         console.log(response);
-        // if (response.data.success) {
-        //   console.log("STOCK:", response.data.products);
-        //   setProductDetails(
-        //     response.data.products.map((row) => ({
-        //       manufacturer: row.manufacturer,
-        //       catergory: row.catergory,
-        //       title: row.title,
-        //       price: row.price,
-        //       quantity: row.quantity,
-        //       prodID: row.prodID,
-        //     }))
-        //   );
-        // } else {
-        //   alert("Error");
-        // }
       });
   };
 
