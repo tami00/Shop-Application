@@ -20,6 +20,7 @@ import CatergoryComponent from './components/search/CatergoryComponent'
 import ViewProducts from './components/user/ViewProducts'
 import ProductInfoComponent from './components/user/ProductInfoComponent'
 import Checkout from './components/cart/Checkout'
+import OrderConfirmation from './components/cart/OrderConfirmation'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -155,6 +156,7 @@ const App = () => {
           <Route exact path="/stock/catergory/:catergory"children={<CatergoryComponent />}/>
           <Route exact path="/admin/profile" component={Profile} />
           <Route exact path="/admin/stock" component={Stock} />
+          <Route exact path="/order/confimation" component={OrderConfirmation} />
           <Route path="/user" component={BoardUser} />
         </Switch>
       </div>

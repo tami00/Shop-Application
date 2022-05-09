@@ -29,9 +29,9 @@ function Checkout() {
     }, [])
 
     const checkout = () => {
-        axios.get("http://localhost:8080/api/getCart", { data: currentUser.id })
+        axios.post("http://localhost:8080/api/getCart", { data: currentUser.id })
             .then((response) => {
-                console.log('DATA', response.data.products.items);
+                console.log('DATA', response.data.products);
                 setCartDetails(response.data.products)
             })
             .catch((err) => {
@@ -40,13 +40,7 @@ function Checkout() {
     };
 
     const items = cartDetails.items
-    // console.log('ITEMS', items)
-
-    // const map =items
-
-    // const result = Object && Object.values(map);
-
-    // console.log(result)
+    console.log('ITEMS', items)
 
     const variables = {
         title: cartDetails.items,
@@ -55,15 +49,24 @@ function Checkout() {
     }
 
     const createOrder = () => {
-        axios.post("http://localhost:8080/api/order/addOrder", { data: variables })
-            .then((response) => {
-                // console.log('DATA', response.data);
-                // setCartDetails(response.data.products)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        history.push("/order/confimation");
+        // axios.post("http://localhost:8080/api/order/addOrder", { data: variables })
+        //     .then((response) => {
+        //         // console.log('DATA', response.data);
+        //         // setCartDetails(response.data.products)
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
     };
+
+    const deleteFromCart = () =>{
+        // axios
+        // .post(`http://localhost:8080/api/deleteCart`, {productId: props.product.prodID, quantity: 1,id: currentUser.id, title:props.product.title})
+        // .then((response) => {
+        //   console.log(response);
+        // });
+    }
 
     const getDiscount = () =>{
         if(loyalty != "NEW10") {
@@ -101,7 +104,7 @@ function Checkout() {
                                     title={product.title}
                                     description={`$${product.price}`}
                                 />
-                                <DeleteOutlined />
+                                <DeleteOutlined onClick={deleteFromCart}/>
                             </Card>
 
                         }) : <div></div>}
