@@ -54,14 +54,11 @@ const App = () => {
     <div>
       {userName === "admin" ? (
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Movie App
+          <Link to={"/admin/stock"} className="navbar-brand">
+            Shop App
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/user/home"} className="nav-link">
-                Home
-              </Link>
             </li>
           </div>
           <Search />
@@ -101,14 +98,11 @@ const App = () => {
         </nav>
       ) : (
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Movie App
+          <Link to={"/user/home"} className="navbar-brand">
+          Shop App
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
             </li>
           </div>
           <Search />
