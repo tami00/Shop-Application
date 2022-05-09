@@ -111,7 +111,7 @@ const App = () => {
               </Link>
             </li>
           </div>
-
+          <Search />
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
